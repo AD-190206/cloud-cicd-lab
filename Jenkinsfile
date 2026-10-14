@@ -57,5 +57,16 @@ pipeline {
                 '''
             }
         }
+	stage('Deploy') {
+            steps {
+                sh '''
+                    docker rm -f student-service-container || true
+                    docker run -d \
+                        --name student-service-container \
+                        -p 5000:5000 \
+                        student-service:latest
+                '''
+            }
+        }
     }
 }
